@@ -6,15 +6,21 @@ import axios from '../../api/axios'
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const EMAIL_REGEX=/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 const REGISTER_URL = '/register';
 
 const Register = () => {
   const userRef = useRef();
   const errRef = useRef();
+  const emailRef = useRef();
 
   const [user, setUser] = useState('');
   const [validName, setValidName] = useState(false);
   const [userFocus, setUserFocus] = useState(false);
+
+  const [email, setEmail] = useState('');
+  const [validEmail, setValidEmail] = useState(false);
+  const [emailFocus, setEmailFocus] = useState(false);
 
   const [pwd, setPwd] = useState('');
   const [validPwd, setValidPwd] = useState(false);
@@ -37,6 +43,11 @@ const Register = () => {
   }, [user])
 
   useEffect(() => {
+    console.log('email entered is: ' + email);
+    setValidEmail(EMAIL_REGEX.test(email));
+  },[email])
+
+  useEffect(() => {
     const result = PWD_REGEX.test(pwd);
     console.log(result);
     console.log(pwd);
@@ -47,20 +58,21 @@ const Register = () => {
 
   useEffect(() => {
     setErrMsg('');
-  }, [user, pwd, matchPwd]);
+  }, [user, email, pwd, matchPwd]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // if button enabled with JS hack
     const v1 = USER_REGEX.test(user);
     const v2 = PWD_REGEX.test(pwd);
-    if (!v1 || !v2) {
+    const v3 = EMAIL_REGEX.test(email);
+    if (!v1 || !v2 || !v3) {
       setErrMsg("Invalid Entry");
       return;
     }
     try {
       const response = await axios.post(REGISTER_URL,
-        JSON.stringify({ user, pwd }),
+        JSON.stringify({ user, pwd, email }),
         {
           headers: { 'Content-Type': 'application/json' },
           withCredentials: true
@@ -73,6 +85,7 @@ const Register = () => {
       //clear state and controlled inputs
       //need value attrib on inputs for this
       setUser('');
+      setEmail('');
       setPwd('');
       setMatchPwd('');
     } catch (err) {
@@ -104,7 +117,7 @@ const Register = () => {
           <form onSubmit={handleSubmit}>
             <label htmlFor='username'>
               Username:
-                <FontAwesomeIcon icon={faCheck} className={validName ? 'true' : 'hide'}/>
+                <FontAwesomeIcon icon={faCheck} className={validName ? 'valid' : 'hide'}/>
                 <FontAwesomeIcon icon={faTimes} className={validName || !user ? "hide" : "invalid"} />
             </label>
             <input
@@ -122,19 +135,41 @@ const Register = () => {
             />
             <p id='uidnote' className={userFocus && user && !validName ?
               'instructions' : 'offscreen'}>
-              <FontAwesomeIcon icon={faInfoCircle} />
+              <FontAwesomeIcon icon={faInfoCircle} className='info_circle' />
               4 to 21 characters. <br />
               Must begin with a letter. <br />
               Letters, numbers, underscores, hyphens, periods allowed.
             </p>
-            <label htmlFor="password">
-              Password:
-              <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
-              <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "hide" : "invalid"} />
+            <label htmlFor='email'>
+              Email:
+                <FontAwesomeIcon icon={faCheck} className={validEmail ? 'valid' : 'hide'}/>
+                <FontAwesomeIcon icon={faTimes} className={validEmail || !email ? "hide" : "invalid"} />
             </label>
             <input
-              type="password"
-              id="password"
+              type='email'
+              id='email'
+              ref={emailRef}
+              autoComplete='off'
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              required
+              aria-invalid={validEmail ? 'false' : 'true'}
+              aria-describedby='emailnote'
+              onFocus={() => setEmailFocus(true)}
+              onBlur={() => setEmailFocus(false)}
+            />
+            <p id='emailnote' className={emailFocus && email && !validEmail ?
+            'instuctions' : 'offscreen'}>
+              Please enter a valid email.
+            </p>
+            <label htmlFor='password'>
+              Password:
+              <FontAwesomeIcon icon={faCheck} className={validPwd ? 'valid' : 'hide'} />
+              <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? 'hide' : 'invalid'} />
+            </label>
+            <input
+              type='password'
+              id='password'
               onChange={(e) => setPwd(e.target.value)}
               value={pwd}
               required
@@ -172,7 +207,10 @@ const Register = () => {
               Must match the first password input field.
             </p>
 
-            <button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
+            <button className='sign_up_btn'
+              disabled={!validName || !validPwd || !validMatch ? true : false}>
+              Sign Up
+            </button>
           </form>
           <p>
             Already registered?<br />

@@ -1,0 +1,44 @@
+.Auth-form-container {
+  max-width: 420px;
+  min-height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 100vw;
+  height: 100vh; */
+}
+
+.Auth-form {
+  width: 420px;
+  box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  border-radius: 1rem;
+  background-color: var(--color-primary);
+}
+
+.Auth-form-content {
+  padding-left: 12%;
+  padding-right: 12%;
+}
+
+.Auth-form-title {
+  text-align: center;
+  margin-bottom: 1em;
+  color: rgb(34, 34, 34);
+  font-weight: 800;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(34, 34, 34);
+}
+
+.sign_in_btn {
+  background-color: var(--color-bg-variant);
+  color: var(--color-white);
+  margin-top: 0.5rem;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+}

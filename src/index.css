@@ -53,7 +53,8 @@ section {
   flex-direction: column;
   justify-content: flex-start;
   padding: 1rem;
-  background-color: var(--color-primary)
+  background-color: var(--color-primary);
+  border-radius: 5%;
 }
 
 form {
@@ -64,11 +65,20 @@ form {
   padding-bottom: 1rem;
 }
 
-input[type="text"],
-input[type="password"],
+input[type='text'],
+input[type='password'],
+input[type='email'],
 button,
 textarea {
   font-size: 22px;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+}
+
+.sign_up_btn {
+  background-color: var(--color-bg-variant);
+  color: var(--color-white);
+  margin-top: 1rem;
   padding: 0.25rem;
   border-radius: 0.5rem;
 }
@@ -93,7 +103,7 @@ textarea {
 }
 
 .valid {
-  color: limegreen;
+  color: var(--color-bg-variant);
   margin-left: 0.25rem;
 }
 
@@ -113,5 +123,7 @@ textarea {
 .line {
   display: inline-block;
 }
-
+.info_circle {
+  margin-right: .1rem;
+}
 
