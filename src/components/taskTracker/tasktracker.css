@@ -2,15 +2,31 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0.5rem;
   margin-bottom: 20px;
+  color: var(--color-white)
 }
 
-.btn {
+.task_container {
+  /* max-width: 66vh; */
+  width: 100%;
+  max-width: 420px;
+  min-height: 400px;
+  margin: 1px auto;
+  overflow: auto;
+  min-height: 300px;
+  border: 1px solid steelblue;
+  padding: 1px;
+  border-radius: 0.75rem;
+  background-color: #313133a4;
+}
+
+.add_task_btn {
   display: inline-block;
-  background: #000;
+  background: var(--color-primary);
   color: #fff;
-  border: none;
-  padding: 10px 20px;
+  border: 1px solid;
+  padding: 0.25rem 0.5rem;
   margin: 5px;
   border-radius: 5px;
   cursor: pointer;
