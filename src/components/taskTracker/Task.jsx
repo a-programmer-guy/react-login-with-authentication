@@ -1,0 +1,10 @@
+const Task = ({task}) => {
+  return (
+    <div className="task">
+      <h3>{task.text}</h3>
+      <small>{task.day}</small>
+    </div>
+  )
+}
+
+export default Task

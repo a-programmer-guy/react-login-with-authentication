@@ -53,6 +53,8 @@
   margin: 5px;
   padding: 10px 20px;
   cursor: pointer;
+  color: #fff;
+  border-radius: 0.5rem;
 }
 
 .task.reminder {
