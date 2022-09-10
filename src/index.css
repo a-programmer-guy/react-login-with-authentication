@@ -52,27 +52,20 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 1rem;
+  padding: 2rem;
   background-color: var(--color-primary);
   border-radius: 5%;
 }
-
-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  flex-grow: 1;
-  padding-bottom: 1rem;
-}
-
 input[type='text'],
 input[type='password'],
 input[type='email'],
+input[type='text'],
 button,
 textarea {
-  font-size: 22px;
   padding: 0.25rem;
   border-radius: 0.5rem;
+  border-color: #2c2c6c;
+  font-size: 20px;
 }
 
 .sign_up_btn {
