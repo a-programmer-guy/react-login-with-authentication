@@ -9,6 +9,8 @@ import TaskHeader from './components/taskTracker/TaskHeader';
 import Tasks from './components/taskTracker/Tasks';
 import TaskTracker from './components/taskTracker/TaskTracker';
 function App() {
+
+  // Array of task objects
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -30,16 +32,26 @@ function App() {
     }
   ]
   )
+
   // Add a task
   const addTask = (task) => {
-    console.log(task)
+    const id = Math.floor(Math.random() * 1000 ) + 1
+    console.log(id)
+
+  // Task object with id, and spread of other task properties
+  const newTask = { id, ...task }
+
+  // Pass in the array of existing tasks and add the newly created task
+  setTasks([...tasks, newTask])
   }
   // Delete a task
   const deleteTask = (id) => {
+    // Filter out the task to be deleted from the list of tasks
     setTasks(tasks.filter((task) => task.id !== id))
   }
   // Set/Remove reminder
   const toggleReminder = (id) => {
+    // Loop through the tasks, if task id matches, toggle the reminder property, otherise just leave the task as is
     setTasks(tasks.map((task) => task.id === id ? {...task, reminder : !task.reminder } : task))
   }
   return (

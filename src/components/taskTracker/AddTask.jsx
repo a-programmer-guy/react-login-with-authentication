@@ -7,8 +7,19 @@ const AddTask = ({onAdd}) => {
   const [day, setDay] = useState('')
   const [reminder, setReminder] = useState(false)
 
-  const onSubmit = () =>{
-    console.log('submit')
+  const onSubmit = (e) =>{
+    e.preventDefault()
+    // Check for valid text
+    if(!text){
+      alert('Please enter a valid task.')
+      return
+    }
+    // Call the onAdd function passed fown from App.js
+    onAdd({text, day, reminder})
+    // Reset state of inputs
+    setDay('')
+    setText('')
+    setReminder(false)
   }
   return (
     <Form className='add-task-form' onSubmit={onSubmit}>
@@ -36,6 +47,7 @@ const AddTask = ({onAdd}) => {
         <label htmlFor='task-reminder' >Set Reminder</label>
         <input
           type='checkbox'
+          checked={reminder}
           value={reminder}
           onChange={(e) => setReminder(e.currentTarget.checked)}
         />

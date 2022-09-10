@@ -15,7 +15,7 @@
   margin: 1px auto;
   overflow: auto;
   min-height: 300px;
-  border: 1px solid steelblue;
+  border: 1px solid steelblue !important;
   padding: 5px;
   border: 1px solid;
   border-radius: 0.75rem;

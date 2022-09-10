@@ -2,16 +2,12 @@ import PropTypes from "prop-types";
 import "./tasktracker.css";
 import Button from "../Button";
 
-const TaskHeader = ({ title }) => {
-
-  const handleClick = () => {
-    console.log('Click!')
-  }
+const TaskHeader = ({ title, onAdd, showAdd }) => {
 
   return (
       <header className="task_header">
         <h1>{title}</h1>
-        <Button name="add_task_btn" text="Add" onClick={handleClick} />
+        <Button  text={showAdd ? 'Close' : 'Add'} color={showAdd ? 'orange' : ''} onClick={onAdd} name="add_task_btn"/>
       </header>
   );
 };
