@@ -1,0 +1,21 @@
+.bg-dark {
+  background-color: var(--color-bg-variant) !important;
+}
+
+.navbar {
+  width: 100%;
+  position: fixed !important; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+}
+
+.navbar-brand {
+  color: var(--color-primary) !important;
+}
+
+.nav-link {
+  color: var(--color-white) !important;
+}
+
+.navbar-text {
+  color: var(--color-primary) !important;
+}

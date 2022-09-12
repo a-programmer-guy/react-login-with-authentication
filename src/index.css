@@ -14,9 +14,9 @@
   --color-bg: #1f1f38;
   --color-bg-variant: #2c2c6c;
   --color-primary: #4db5ff;
-  --color-primary-variant: rgba(77,181,255,0.4);
+  --color-primary-variant: rgba(77, 181, 255, 0.4);
   --color-white: #fff;
-  --color-light: rgba(255,255,255,0.6);
+  --color-light: rgba(255, 255, 255, 0.6);
 
   --container-width-lg: 75%;
   --container-width-md: 86%;
@@ -117,6 +117,5 @@ textarea {
   display: inline-block;
 }
 .info_circle {
-  margin-right: .1rem;
+  margin-right: 0.1rem;
 }
-

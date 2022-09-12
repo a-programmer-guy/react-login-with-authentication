@@ -1,0 +1,25 @@
+.landing_container {
+  text-align: center;
+}
+
+.login_btn {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  margin-top: 1rem;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  width: 100%;
+}
+
+.register_btn {
+  background-color: var(--color-bg-variant);
+  color: var(--color-white);
+  margin-top: 1rem;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  width: 100%;
+}
+
+.landing_h5 {
+  color: var(--color-bg-variant);
+}
