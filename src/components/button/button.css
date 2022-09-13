@@ -1,0 +1,15 @@
+.nav_login {
+  margin-top: 0.25rem;
+  margin-right: 1rem;
+  background-color: var(--color-primary);
+  border-radius: 0.25rem;
+  color: var(--color-white);
+}
+
+.nav_register {
+  margin-top: 0.25rem;
+  margin-right: 1rem;
+  background-color: var(--color-bg-variant);
+  border-radius: 0.25rem;
+  color: var(--color-white);
+}

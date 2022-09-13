@@ -19,3 +19,8 @@
 .navbar-text {
   color: var(--color-primary) !important;
 }
+
+.nav-item:hover {
+  border: 1px solid;
+  border-color: var(--color-primary);
+}

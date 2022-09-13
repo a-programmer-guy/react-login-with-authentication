@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useParams, Navigate, useNavigate } from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -15,9 +16,14 @@ import {
 } from 'reactstrap';
 
 import './nav.css';
+import Button from '../button/Button';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const navigate = useNavigate();
 
   const toggle = () => setIsOpen(!isOpen);
   return (
@@ -27,24 +33,36 @@ const Navigation = () => {
       <Collapse isOpen={isOpen} navbar>
         <Nav className="me-auto" navbar>
           <NavItem>
-            <NavLink href="/components/">Home</NavLink>
+            <NavLink href="/">Home</NavLink>
           </NavItem>
           <NavItem>
             <NavLink href="https://github.com/a-programmer-guy">GitHub</NavLink>
           </NavItem>
-          <UncontrolledDropdown nav inNavbar>
-            <DropdownToggle nav caret>
-              Options
-            </DropdownToggle>
-            <DropdownMenu end>
-              <DropdownItem>Option 1</DropdownItem>
-              <DropdownItem>Option 2</DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>Reset</DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
         </Nav>
-        <NavbarText>User Name</NavbarText>
+        {loggedIn ? (
+          <>
+            <UncontrolledDropdown className="me-2">
+              <DropdownToggle nav caret>
+                User Name
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem onClick={() => setLoggedIn(!loggedIn)}>
+                  Logout
+                </DropdownItem>
+                <DropdownItem>Option 2</DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>Reset</DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+            {/* <NavLink href="/logout">Logout</NavLink>
+            <NavbarText className="ml-2">User Name</NavbarText> */}
+          </>
+        ) : (
+          <>
+            <NavLink href="/login">Login</NavLink>
+            <NavLink href="/register">Register</NavLink>
+          </>
+        )}
       </Collapse>
     </Navbar>
   );

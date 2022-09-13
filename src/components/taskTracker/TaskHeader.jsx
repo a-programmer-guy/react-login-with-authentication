@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import './tasktracker.css';
-import Button from '../Button';
+import Button from '../button/Button';
 
 const TaskHeader = ({ title, onAdd, showAdd }) => {
   return (
