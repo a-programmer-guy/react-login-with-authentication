@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import About from './components/about/About';
 import Footer from './components/footer/Footer';
-import Header from './components/header/Header';
 import Landing from './components/landing/Landing';
 import Login from './components/login/Login';
 import Navigation from './components/nav/Nav';
 import Register from './components/register/Register';
 import TaskTracker from './components/taskTracker/TaskTracker';
+import User from './components/user/User';
 
 function App() {
   // Array of task objects
@@ -77,6 +77,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/about" element={<About />} />
+          <Route path="/user/:id" element={<User />} />
         </Routes>
         <Footer />
       </div>
