@@ -1,22 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 
 const User = () => {
-  const [user, setUser] = useState([]);
-
-  useEffect(() => {
-    const getUser = async () => {
-      const userData = await fetchUser();
-      setUser(userData);
-    };
-    getUser();
-  }, []);
-
-  // Fetch user data
-  const fetchUser = async () => {
-    const res = await fetch('http://localhost:5000/api/users/3');
-    const data = await res.json();
-    return data;
-  };
+  // Access the user context value
+  const user = useContext(UserContext);
 
   return <div>{user.username}</div>;
 };

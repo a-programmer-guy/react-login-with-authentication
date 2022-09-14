@@ -9,6 +9,9 @@ import Register from './components/register/Register';
 import TaskTracker from './components/taskTracker/TaskTracker';
 import User from './components/user/User';
 
+// Import user context
+import { UserContextProvider } from './contexts/UserContext';
+
 function App() {
   // Array of task objects
   const [tasks, setTasks] = useState([
@@ -58,30 +61,32 @@ function App() {
     );
   };
   return (
-    <Router>
-      <div className="App">
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route
-            path="/tasks"
-            element={
-              <TaskTracker
-                tasks={tasks}
-                onDelete={deleteTask}
-                onToggle={toggleReminder}
-                onAdd={addTask}
-              />
-            }
-          />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/user/:id" element={<User />} />
-        </Routes>
-        <Footer />
-      </div>
-    </Router>
+    <UserContextProvider>
+      <Router>
+        <div className="App">
+          <Navigation />
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route
+              path="/tasks"
+              element={
+                <TaskTracker
+                  tasks={tasks}
+                  onDelete={deleteTask}
+                  onToggle={toggleReminder}
+                  onAdd={addTask}
+                />
+              }
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/user/:id" element={<User />} />
+          </Routes>
+          <Footer />
+        </div>
+      </Router>
+    </UserContextProvider>
   );
 }
 
