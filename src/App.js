@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import About from './components/about/About';
 import Footer from './components/footer/Footer';
 import Landing from './components/landing/Landing';
+import ForgotPassword from './components/login/ForgotPassword';
 import Login from './components/login/Login';
 import Navigation from './components/nav/Nav';
 import Register from './components/register/Register';
@@ -79,6 +80,7 @@ function App() {
               }
             />
             <Route path="/login" element={<Login />} />
+            <Route path="/forgot" element={<ForgotPassword />} />
             <Route path="/register" element={<Register />} />
             <Route path="/about" element={<About />} />
             <Route path="/user/:id" element={<User />} />
