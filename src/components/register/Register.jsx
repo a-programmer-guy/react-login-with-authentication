@@ -267,7 +267,6 @@ const Register = () => {
               <FontAwesomeIcon icon={faInfoCircle} />
               Must match the first password input field.
             </p>
-
             <button
               className="sign_up_btn"
               disabled={!validName || !validPwd || !validMatch ? true : false}
@@ -279,8 +278,7 @@ const Register = () => {
             Already registered?
             <br />
             <span className="line">
-              {/*put router link here*/}
-              <a href="#">Sign In</a>
+              <a href="/login">Sign In</a>
             </span>
           </p>
         </section>

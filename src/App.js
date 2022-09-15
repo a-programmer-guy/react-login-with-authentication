@@ -1,17 +1,19 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import About from './components/about/About';
 import Footer from './components/footer/Footer';
 import Landing from './components/landing/Landing';
+import Layout from './components/Layout';
 import ForgotPassword from './components/login/ForgotPassword';
 import Login from './components/login/Login';
 import Navigation from './components/nav/Nav';
 import Register from './components/register/Register';
 import TaskTracker from './components/taskTracker/TaskTracker';
 import User from './components/user/User';
+import Missing from './components/missing/Missing';
 
 // Import user context
-import { UserContextProvider } from './contexts/UserContext';
+import { UserContext } from './contexts/UserContext';
 
 function App() {
   // Array of task objects
@@ -61,34 +63,41 @@ function App() {
       )
     );
   };
+
+  const user = useContext(UserContext);
+
   return (
-    <UserContextProvider>
+    <div className="App">
       <Router>
-        <div className="App">
-          <Navigation />
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route
-              path="/tasks"
-              element={
-                <TaskTracker
-                  tasks={tasks}
-                  onDelete={deleteTask}
-                  onToggle={toggleReminder}
-                  onAdd={addTask}
-                />
-              }
-            />
-            <Route path="/login" element={<Login />} />
-            <Route path="/forgot" element={<ForgotPassword />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/user/:id" element={<User />} />
-          </Routes>
-          <Footer />
-        </div>
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<Layout />} />
+          {/* Public Routes */}
+          <Route path="/landing" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/forgot" element={<ForgotPassword />} />
+          <Route path="/register" element={<Register />} />
+
+          {/* Protected Routes */}
+          <Route
+            path="/tasks"
+            element={
+              <TaskTracker
+                tasks={tasks}
+                onDelete={deleteTask}
+                onToggle={toggleReminder}
+                onAdd={addTask}
+              />
+            }
+          />
+          <Route path="/about" element={<About />} />
+          <Route path="/user/:id" element={<User />} />
+          {/* Catch All */}
+          <Route path="*" element={<Missing />} />
+        </Routes>
+        <Footer />
       </Router>
-    </UserContextProvider>
+    </div>
   );
 }
 
