@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import RequireAuth from './components/RequireAuth';
+
 import About from './components/about/About';
 import Footer from './components/footer/Footer';
 import Landing from './components/landing/Landing';
@@ -10,9 +11,10 @@ import Login from './components/login/Login';
 import Navigation from './components/nav/Nav';
 import Register from './components/register/Register';
 import TaskTracker from './components/taskTracker/TaskTracker';
-import User from './components/user/User';
+import User from './components/users/Users';
 import Missing from './components/utility/Missing';
 import Unauthorized from './components/utility/Unauthorized';
+import UsersPage from './components/users/UsersPage';
 
 function App() {
   // Array of task objects
@@ -77,6 +79,7 @@ function App() {
 
           {/* Protected Routes - Protected by Require Auth component */}
           <Route element={<RequireAuth />}>
+            <Route path="/users" element={<UsersPage />} />
             <Route
               path="/tasks"
               element={

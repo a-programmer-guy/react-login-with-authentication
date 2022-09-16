@@ -1,12 +1,13 @@
 import { useRef, useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './login.css';
 import axios from '../../api/axios';
 import useAuth from '../../api/hooks/useAuth';
+
 const Login = () => {
   const LOGIN_URL = '/tokens';
   // Use the global useAuth hook to set authentication context
-  const { setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,7 +40,6 @@ const Login = () => {
       const response = await axios.post(
         LOGIN_URL,
         {},
-        // JSON.stringify({ username, password }),
         {
           auth: {
             username: username,
@@ -47,8 +47,6 @@ const Login = () => {
           },
         }
       );
-      console.log(JSON.stringify(response?.data));
-      console.log('tk: ', response.data);
       const token = response.data;
       setAuth({ username, password, token });
       setUser('');
@@ -56,7 +54,8 @@ const Login = () => {
       /* Redirect to the page the user was trying to access
          before they logged in */
       // navigate(from, { replace: true });
-      navigate('/about');
+      navigate('/users');
+      console.log(auth);
     } catch (err) {
       if (!err?.response.status === null) {
         setErrMsg('No Server Response');
