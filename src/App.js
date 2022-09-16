@@ -1,5 +1,6 @@
-import { useContext, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import RequireAuth from './components/RequireAuth';
 import About from './components/about/About';
 import Footer from './components/footer/Footer';
 import Landing from './components/landing/Landing';
@@ -10,10 +11,8 @@ import Navigation from './components/nav/Nav';
 import Register from './components/register/Register';
 import TaskTracker from './components/taskTracker/TaskTracker';
 import User from './components/user/User';
-import Missing from './components/missing/Missing';
-
-// Import user context
-import { UserContext } from './contexts/UserContext';
+import Missing from './components/utility/Missing';
+import Unauthorized from './components/utility/Unauthorized';
 
 function App() {
   // Array of task objects
@@ -64,40 +63,40 @@ function App() {
     );
   };
 
-  const user = useContext(UserContext);
-
   return (
-    <div className="App">
-      <Router>
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<Layout />} />
+    <>
+      <Navigation />
+      <Routes>
+        <Route path="/" element={<Layout />}>
           {/* Public Routes */}
-          <Route path="/landing" element={<Landing />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgot" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
 
-          {/* Protected Routes */}
-          <Route
-            path="/tasks"
-            element={
-              <TaskTracker
-                tasks={tasks}
-                onDelete={deleteTask}
-                onToggle={toggleReminder}
-                onAdd={addTask}
-              />
-            }
-          />
-          <Route path="/about" element={<About />} />
-          <Route path="/user/:id" element={<User />} />
+          {/* Protected Routes - Protected by Require Auth component */}
+          <Route element={<RequireAuth />}>
+            <Route
+              path="/tasks"
+              element={
+                <TaskTracker
+                  tasks={tasks}
+                  onDelete={deleteTask}
+                  onToggle={toggleReminder}
+                  onAdd={addTask}
+                />
+              }
+            />
+            <Route path="/about" element={<About />} />
+            <Route path="/user/:id" element={<User />} />
+          </Route>
           {/* Catch All */}
           <Route path="*" element={<Missing />} />
-        </Routes>
-        <Footer />
-      </Router>
-    </div>
+        </Route>
+      </Routes>
+      <Footer />
+    </>
   );
 }
 

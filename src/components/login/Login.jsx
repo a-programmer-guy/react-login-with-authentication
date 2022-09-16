@@ -1,12 +1,16 @@
-import { useRef, useState, useEffect, useContext } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './login.css';
-import ForgotPassword from './ForgotPassword';
 import axios from '../../api/axios';
-import AuthContext from '../../contexts/AuthProvider';
-
+import useAuth from '../../api/hooks/useAuth';
 const Login = () => {
   const LOGIN_URL = '/tokens';
-  const { setAuth } = useContext(AuthContext);
+  // Use the global useAuth hook to set authentication context
+  const { setAuth } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
 
   // References
   const errRef = useRef();
@@ -16,7 +20,8 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
 
-  // With an empty array, useEffect will only occur on load
+  // With an empty array, useEffect will only occur on initial render
+  // Focus will be on the username input
   useEffect(() => {
     userRef.current.focus();
   }, []);
@@ -26,8 +31,6 @@ const Login = () => {
     setErrMsg('');
   }, [username, password]);
   const [userFocus, setUserFocus] = useState(false);
-
-  const [passwordFocus, setPasswordFocus] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,12 +47,16 @@ const Login = () => {
           },
         }
       );
-      setAuth(username, password, response.data.token);
+      console.log(JSON.stringify(response?.data));
+      console.log('tk: ', response.data);
+      const token = response.data;
+      setAuth({ username, password, token });
       setUser('');
       setPassword('');
-      console.log(response?.data);
-      console.log('Token!!: ', response?.data.token);
-      console.log(JSON.stringify(response));
+      /* Redirect to the page the user was trying to access
+         before they logged in */
+      // navigate(from, { replace: true });
+      navigate('/about');
     } catch (err) {
       if (!err?.response.status === null) {
         setErrMsg('No Server Response');
@@ -100,8 +107,6 @@ const Login = () => {
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
-              onFocus={() => setPasswordFocus(true)}
-              onBlur={() => setPasswordFocus(false)}
             />
           </div>
           <div className="d-grid gap-2 mt-3">
